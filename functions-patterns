@@ -14,4 +14,4 @@ pattern and mask:
 \x33\xF4\x42\xF9\xF4\x03\x02\xAA\x7C\xC2\xFF\x97\xE1\x03\x00\xAA\xE0\x03\x13\xAA
 x?xxxxxx???xxxxxxxxx
 
-note: from the result address offset -0x18 to get the function start
+note: from the result address offset -0x14 to get the function start
