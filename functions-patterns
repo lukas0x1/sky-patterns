@@ -1,0 +1,17 @@
+updated by Kiojeen. 2023/1/11.
+
+CheckpointBarn::m_ChangeLevel(CheckpointBarn *this, Game *a2, const char *a3)
+function used to change the current level of the player.
+note: arg 1 "this" is not used in the function
+found by searching for m_ChangeLevel in bootloader functions list after using bindiff.
+
+offsets from the libs that the pattren was made on:
+Beta v0.15.0 177885: 0x9C4E30
+Live v0.19.6 207940: 0x5C1204
+Beta v0.20.0 209627: 0x5F4BE4
+
+pattern and mask:
+\x33\xF4\x42\xF9\xF4\x03\x02\xAA\x7C\xC2\xFF\x97\xE1\x03\x00\xAA\xE0\x03\x13\xAA
+x?xxxxxx???xxxxxxxxx
+
+note: from the result address offset -0x18 to get the function start
