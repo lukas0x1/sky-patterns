@@ -1,4 +1,4 @@
-updated by Kiojeen. 2023/1/11.
+updated by Kiojeen. 2023/2/5.
 
 CheckpointBarn::m_ChangeLevel(CheckpointBarn *this, Game *a2, const char *a3)
 function used to change the current level of the player.
@@ -15,3 +15,56 @@ pattern and mask:
 x?xxxxxx???xxxxxxxxx
 
 note: from the result address offset -0x14 to get the function start
+___________________________________________
+Avatar::Teleport(Avatar *this, const Vector3& cords, bool center);
+
+a method used to change the coordinates of the avatar/s on the map
+found by comparing two versions of bootloader one of them is not stripped
+
+offsets from the libs that the pattren was made on:
+Beta v0.15.0 177885: 0x917854
+Live v0.20.0 209628: 0x51C400
+
+hex dump comparation: 
+Beta v0.15.0 177885: 16 1C 40 F9 F4 03 00 AA E8 C3 00 91 F3 03 02 2A E0 03 16 AA F5 03 01 AA
+Live v0.20.0 209628: 16 1C 40 F9 F4 03 00 AA E8 C3 00 91 F3 03 02 2A E0 03 16 AA F5 03 01 AA
+                     __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __ __
+                     x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x  x
+
+pattern and mask:
+\x16\x1C\x40\xF9\xF4\x03\x00\xAA\xE8\xC3\x00\x91
+xxxxxxxxxxx
+note: from the result address offset -0x18 to get the function start
+___________________________________________
+
+Avatar::Avatar(Avatar *this);
+
+the constructor of the Avatar class. can be used to get all avatars (players and spirits)
+
+Beta v0.15.0 177885: 0x9149BC
+Live v0.20.0 209628: 0x519294
+Beta v0.20.1 210507: 0x519108
+
+hex dump comparation: 
+Beta v0.15.0 177885: 68 0A 00 B9 66 8F F6 97 C8 74 00 D0 08 55 40 F9 C9 74 00 
+Live v0.20.0 209628: 68 0A 00 B9 FF CA 1B 94 28 82 00 D0 08 21 43 F9 69 74 00 
+Beta v0.20.1 210507: 68 0A 00 B9 64 CC 1B 94 28 82 00 F0 08 21 43 F9 69 74 00 
+Beta v0.20.5 211006: 68 0A 00 B9 E1 FE 1B 94 88 8A 00 90 08 C1 47 F9 89 7C 00
+                     __ __ __ __                   __    __       __       __ 
+                     x  x  x  x  ?  ?  ?  ?  ?  ?  x  ?  x  ?  ?  x  ?  ?  x  
+
+\x68\x0A\x00\xB9\x64\xCC\x1B\x94\x28\x82\x00\xF0\x08\x21\x43\xF9\x69\x74\x00 
+xxxx??????x?x??x?xx
+
+note: from the result address offset -0x2C to get the function start
+___________________________________________
+
+AvatarShout::DoShout(long a1, int a2, int a3, bool a4, bool a5, bool a6, long double a7, float a8,float a9, float a10, long double a11, float a12);
+
+Beta v0.15.0 177885: 08 B0 40 39 A8 0D 00 35 08 28 40 F9 F7 03 04 2A F6 03 03 2A 
+Live v0.20.0 209628: 08 B0 40 39 68 28 00 35 48 77 00 90 08 61 78 39 F8 03 05 2A 
+                     __ __ __ __       __ __                            __    __ 
+                     x  x  x  x  ?  ?  x  x  ?  ?  ?  ?  ?  ?  ?  ?  ?  x  ?  x
+
+\x08\xB0\x40\x39\x68\x28\x00\x35\x48\x77\x00\x90\x08\x61\x78\x39\xF8\x03\x05\x2A
+xxxx??xx?????????x?x
